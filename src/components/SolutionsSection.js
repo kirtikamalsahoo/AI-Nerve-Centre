@@ -44,7 +44,7 @@ const SolutionsSection = () => {
 },
 {
   id: 'healthcare',
-  name: 'Healthcare',
+  name: 'Healthcare & Life Sciences',
   icon: 'M12 2a10 10 0 100 20 10 10 0 000-20zm1 5h-2v4H7v2h4v4h2v-4h4v-2h-4V7z',
   useCases: [
     {
@@ -75,44 +75,6 @@ const SolutionsSection = () => {
       blueprint: {
         coordinator: 'Pharmacy Manager',
         agents: ['Prescription Validator', 'Interaction Checker', 'Inventory Monitor', 'Restocking Agent']
-      }
-    }
-  ]
-}
-,
-{
-  id: 'warehouse',
-  name: 'Warehouse Management',
-  icon: 'M4 4h16v16H4V4zm8 2v12m-6-6h12',
-  useCases: [
-    {
-      id: 'inventory_tracking',
-      name: 'Intelligent Inventory Tracking',
-      description: 'Agents track stock levels in real-time, predict shortages, and trigger replenishment orders automatically.',
-      roi: { label: 'Stockout Reduction', value: 80 },
-      blueprint: {
-        coordinator: 'Inventory Coordinator',
-        agents: ['Stock Monitor', 'Demand Forecaster', 'Replenishment Agent', 'Exception Reporter']
-      }
-    },
-    {
-      id: 'order_fulfillment',
-      name: 'Autonomous Order Fulfillment',
-      description: 'Agents pick, pack, and route orders using AI-driven optimization, reducing delays and minimizing errors.',
-      roi: { label: 'Fulfillment Accuracy', value: 70 },
-      blueprint: {
-        coordinator: 'Fulfillment Supervisor',
-        agents: ['Picking Agent', 'Packing Optimizer', 'Routing Planner', 'Error Handler']
-      }
-    },
-    {
-      id: 'asset_maintenance',
-      name: 'Predictive Asset Maintenance',
-      description: 'Agents monitor equipment health, predict failures, and schedule preventive maintenance to avoid downtime.',
-      roi: { label: 'Downtime Reduction', value: 60 },
-      blueprint: {
-        coordinator: 'Maintenance Manager',
-        agents: ['Sensor Monitor', 'Failure Predictor', 'Maintenance Scheduler', 'Repair Notifier']
       }
     }
   ]
