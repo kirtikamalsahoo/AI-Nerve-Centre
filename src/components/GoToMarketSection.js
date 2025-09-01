@@ -23,7 +23,7 @@ const phasesData = [
         phase: 'Phase 3',
         title: 'Scale & Expand',
         duration: 'Months 12-24',
-        description: 'Aggressively grow the Agent Hub, launch new Accelerator Services for more industries, and host a "AI Nerve Centre Developer Day" to foster the ecosystem.',
+        description: 'Aggressively grow the Agent Hub, launch new Accelerator Services for more industries, and host a &quot;AI Nerve Centre Developer Day&quot; to foster the ecosystem.',
         icon: '📈', // Growth chart icon
         color: 'from-fuchsia-600 to-pink-600'
     },
@@ -46,7 +46,7 @@ function GoToMarketSection() {
                     <h2 className="text-base font-semibold text-violet-500 tracking-wider uppercase">Go-to-Market</h2>
                     <p className="mt-2 text-3xl font-extrabold text-white sm:text-4xl">Our Phased Launch Plan</p>
                     <p className="mt-4 max-w-3xl mx-auto text-xl text-gray-300">
-                        Our launch is a carefully orchestrated campaign designed to build momentum, gather proof points, and mitigate risk, all centered on our narrative of "Verifiable Trust."
+                        Our launch is a carefully orchestrated campaign designed to build momentum, gather proof points, and mitigate risk, all centered on our narrative of &quot;Verifiable Trust.&quot;
                     </p>
                 </div>
                 

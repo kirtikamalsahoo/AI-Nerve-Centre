@@ -45,7 +45,7 @@ const CapgeminiAISection = () => {
             Capgemini AI Offerings
           </p>
           <p className="mt-4 text-xl text-gray-300">
-            Explore Capgemini's cutting-edge AI solutions designed to transform businesses and drive innovation across industries.
+            Explore Capgemini&apos;s cutting-edge AI solutions designed to transform businesses and drive innovation across industries.
           </p>
         </div>
 

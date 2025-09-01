@@ -137,7 +137,7 @@ function BlueprintSection() {
 						Our Differentiated Blueprint
 					</motion.p>
 					<p className="mt-4 max-w-3xl mx-auto text-xl text-gray-200">
-          AI Nerve Centre is not just another platform; it's a complete ecosystem
+          AI Nerve Centre is not just another platform; it&apos;s a complete ecosystem
 						designed around Openness, Industrial Focus, and Verifiable Trust.
 						Explore the four pillars that form the foundation of our offering.
 					</p>

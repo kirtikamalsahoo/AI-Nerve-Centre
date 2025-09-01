@@ -57,7 +57,7 @@ function OpportunitySection() {
                     <h2 className="text-base font-semibold text-violet-400 tracking-wider uppercase">Market Landscape</h2>
                     <p className="mt-2 text-3xl font-extrabold text-white sm:text-4xl">The Next Trillion-Dollar Shift</p>
                     <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-100">
-                        The transition from generative to agentic AI isn't just a trend; it's a seismic market transformation.
+                        The transition from generative to agentic AI isn&apos;t just a trend; it&apos;s a seismic market transformation.
                         We are moving from AI as a tool to AI as an autonomous actor, creating a massive opportunity for first-movers.
                     </p>
                 </div>
@@ -98,7 +98,7 @@ function OpportunitySection() {
                                 <div className="ml-4">
                                     <h4 className="text-lg font-medium text-white">Navigating the Hype</h4>
                                     <p className="mt-2 text-base text-gray-100">
-                                        With over 40% of projects predicted to fail due to "agent washing," clients need a trusted partner who can deliver verifiable ROI, not just hype.
+                                        With over 40% of projects predicted to fail due to &quot;agent washing,&quot; clients need a trusted partner who can deliver verifiable ROI, not just hype.
                                     </p>
                                 </div>
                             </div>
