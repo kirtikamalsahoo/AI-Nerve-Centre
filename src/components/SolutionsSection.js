@@ -10,6 +10,16 @@ const SolutionsSection = () => {
   name: 'Insurance',
   icon: 'M12 2l4 4h6v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6h6l4-4z',
   useCases: [
+        {
+      id: 'vehicle_claim',
+      name: 'Vehicle Insurance Claim',
+      description: 'Agents manage accident report intake, damage photo analysis, repair estimation, and fraud checks, ensuring faster claim settlements and reduced disputes.',
+      roi: { label: 'Settlement Time Reduction', value: 60 },
+      blueprint: {
+        coordinator: 'Auto Claim Supervisor',
+        agents: ['Damage Analyzer', 'Repair Estimator', 'Fraud Detector', 'Settlement Agent']
+      }
+    },
     {
       id: 'health_claim',
       name: 'Health Insurance Claim',
@@ -20,16 +30,7 @@ const SolutionsSection = () => {
         agents: ['Medical Bill Extractor', 'Policy Validator', 'Claim Approver', 'Exception Handler']
       }
     },
-    {
-      id: 'vehicle_claim',
-      name: 'Vehicle Insurance Claim',
-      description: 'Agents manage accident report intake, damage photo analysis, repair estimation, and fraud checks, ensuring faster claim settlements and reduced disputes.',
-      roi: { label: 'Settlement Time Reduction', value: 60 },
-      blueprint: {
-        coordinator: 'Auto Claim Supervisor',
-        agents: ['Damage Analyzer', 'Repair Estimator', 'Fraud Detector', 'Settlement Agent']
-      }
-    },
+
     {
       id: 'property_claim',
       name: 'Property Insurance Claim',
