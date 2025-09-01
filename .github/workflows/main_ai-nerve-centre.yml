@@ -52,4 +52,4 @@ jobs:
           app-name: 'ai-nerve-centre'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9CE09B931F0E4873A6DEDF02E40C6414 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2BE193AD37134C8A8C887ED86D1F8D5B }}
