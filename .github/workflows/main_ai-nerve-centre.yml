@@ -26,7 +26,6 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm run build --if-present
           npm run test --if-present
 
       - name: Upload artifact for deployment job
@@ -52,4 +51,5 @@ jobs:
           app-name: 'ai-nerve-centre'
           slot-name: 'Production'
           package: .
+
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_81B9EDA379274F5FAFE1D6CD8B2A39B6 }}
