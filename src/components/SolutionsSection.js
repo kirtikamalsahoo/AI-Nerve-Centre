@@ -18,6 +18,15 @@ const SolutionsSection = () => {
       blueprint: {
         coordinator: 'Auto Claim Supervisor',
         agents: ['Damage Analyzer', 'Repair Estimator', 'Fraud Detector', 'Settlement Agent']
+      },
+      demoVideo: {
+        title: 'Vehicle Claim Processing Demo',
+        thumbnail: '/api/placeholder/400/225',
+        description: 'Watch how AI agents process a vehicle insurance claim from accident report to settlement in under 2 minutes.'
+      },
+      liveDemo: {
+        url: 'https://insurance-frontend-agentic-c4gqbafzgxf9egc0.canadacentral-01.azurewebsites.net/',
+        label: 'Try Vehicle Claim Demo'
       }
     },
     {
@@ -28,6 +37,15 @@ const SolutionsSection = () => {
       blueprint: {
         coordinator: 'Health Claim Coordinator',
         agents: ['Medical Bill Extractor', 'Policy Validator', 'Claim Approver', 'Exception Handler']
+      },
+      demoVideo: {
+        title: 'Health Insurance Automation Demo',
+        thumbnail: '/api/placeholder/400/225',
+        description: 'See how medical bills are processed automatically with policy validation and instant approvals.'
+      },
+      liveDemo: {
+        url: '/demos/health-claim',
+        label: 'Try Health Claim Demo'
       }
     },
 
@@ -39,6 +57,15 @@ const SolutionsSection = () => {
       blueprint: {
         coordinator: 'Property Claim Manager',
         agents: ['Document Verifier', 'Loss Assessor', 'Policy Checker', 'Payout Recommender']
+      },
+      demoVideo: {
+        title: 'Property Damage Assessment Demo',
+        thumbnail: '/api/placeholder/400/225',
+        description: 'Experience how AI agents evaluate property damage reports and calculate payouts automatically.'
+      },
+      liveDemo: {
+        url: '/demos/property-claim',
+        label: 'Try Property Claim Demo'
       }
     }
   ]
@@ -521,6 +548,7 @@ const SolutionsSection = () => {
                   <BlueprintDiagram blueprint={selectedUseCase.blueprint} />
                 </div>
               </div>
+              
               {/* Use-case Details & ROI Column */}
               <div className="order-1 lg:order-2">
                 <h3 className="text-2xl font-bold text-white">
@@ -543,6 +571,60 @@ const SolutionsSection = () => {
                 </div>
               </div>
             </div>
+
+            {/* Demo Video and Live Demo Cards - Below Blueprint and ROI */}
+            {selectedUseCase.demoVideo && (
+              <div className="mt-8 grid md:grid-cols-2 gap-6">
+                {/* Demo Video Card */}
+                <div className="bg-white/10 backdrop-blur-md rounded-lg shadow-inner overflow-hidden">
+                  <div className="relative">
+                    <img 
+                      src={selectedUseCase.demoVideo.thumbnail} 
+                      alt={selectedUseCase.demoVideo.title}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                      <button className="w-16 h-16 rounded-full bg-violet-600/80 backdrop-blur-sm flex items-center justify-center text-white hover:bg-violet-600 transition-colors duration-300">
+                        <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h4 className="font-semibold text-white mb-2 text-lg">
+                      {selectedUseCase.demoVideo.title}
+                    </h4>
+                    <p className="text-sm text-gray-300">
+                      {selectedUseCase.demoVideo.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Live Demo Card */}
+                <div className="bg-white/10 backdrop-blur-md rounded-lg shadow-inner p-6 flex flex-col justify-center">
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 flex items-center justify-center">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <h4 className="font-semibold text-white mb-3 text-lg">
+                      Try It Yourself
+                    </h4>
+                    <p className="text-sm text-gray-300 mb-6">
+                      Experience the power of AI agents with our interactive demo. No signup required.
+                    </p>
+                    <button 
+                      onClick={() => window.open(selectedUseCase.liveDemo.url, '_blank')}
+                      className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    >
+                      {selectedUseCase.liveDemo.label}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div> 
