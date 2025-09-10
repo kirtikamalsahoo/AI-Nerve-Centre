@@ -15,7 +15,7 @@ const SolutionsSection = () => {
         { id: 'credit_check', name: 'Credit Check Processing' },
         { id: 'order_fulfillment', name: 'Order Fulfillment' },
         { id: 'invoicing', name: 'Automated Invoicing' },
-        { id: 'payment_collection', name: 'Payment Collection' },
+        { id: 'Accounts Receivable (AR)', name: 'Accounts Receivable (AR)' },
         { id: 'reconciliation', name: 'Account Reconciliation' }
       ]
     },
@@ -30,7 +30,7 @@ const SolutionsSection = () => {
         { id: 'purchase_order', name: 'Purchase Order Creation' },
         { id: 'goods_receipt', name: 'Goods Receipt Processing' },
         { id: 'invoice_processing', name: 'Invoice Processing' },
-        { id: 'payment', name: 'Payment Processing' }
+        { id: 'Accounts Payable (AP)', name: 'Accounts Payable (AP)' }
       ]
     },
     {
