@@ -6,7 +6,7 @@ const phasesData = [
     {
         phase: 'Phase 1',
         title: 'Internal Adoption & Lighthouse Program',
-        duration: 'First 6 Months',
+        // duration: 'First 6 Months',
         description: 'Deploy AI Nerve Centre internally to generate case studies. Engage 3-5 strategic lighthouse clients in a co-creation program to ensure market alignment.',
         icon: '🚀', // Launch icon
         color: 'from-blue-500 to-violet-600'
@@ -14,7 +14,7 @@ const phasesData = [
     {
         phase: 'Phase 2',
         title: 'Broad Market Launch',
-        duration: 'Months 6-12',
+        // duration: 'Months 6-12',
         description: 'Official public launch of the AI Nerve Centre brand, supported by a comprehensive marketing campaign.',
         icon: '🌐', // Globe icon
         color: 'from-violet-600 to-fuchsia-600'
@@ -22,7 +22,7 @@ const phasesData = [
     {
         phase: 'Phase 3',
         title: 'Scale & Expand',
-        duration: 'Months 12-24',
+        // duration: 'Months 12-24',
         description: 'Aggressively grow the Agent Hub, launch new Accelerator Services for more industries, and host a &quot;AI Nerve Centre Developer Day&quot; to foster the ecosystem.',
         icon: '📈', // Growth chart icon
         color: 'from-fuchsia-600 to-pink-600'
