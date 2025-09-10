@@ -3,352 +3,253 @@ import { useState, useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
 const SolutionsSection = () => {
-  // Data structure for functions and use cases (extracted from the provided HTML content)
+  // Core processes data
+  const coreProcessesData = [
+    {
+      id: 'o2c',
+      name: 'Order-to-Cash (O2C)',
+      icon: 'M3 3v18h18V3H3zm16 16H5V5h14v14zm-8-8h6v2h-6v-2zm0 4h6v2h-6v-2z',
+      description: 'Streamline the entire order-to-cash process with intelligent automation',
+      automationOpportunities: [
+        { id: 'order_entry', name: 'Order Entry Automation' },
+        { id: 'credit_check', name: 'Credit Check Processing' },
+        { id: 'order_fulfillment', name: 'Order Fulfillment' },
+        { id: 'invoicing', name: 'Automated Invoicing' },
+        { id: 'payment_collection', name: 'Payment Collection' },
+        { id: 'reconciliation', name: 'Account Reconciliation' }
+      ]
+    },
+    {
+      id: 'p2p',
+      name: 'Procure-to-Pay (P2P)',
+      icon: 'M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 011 1v2a1 1 0 01-1 1h-1v10a2 2 0 01-2 2H6a2 2 0 01-2-2V8H3a1 1 0 01-1-1V5a1 1 0 011-1h4z',
+      description: 'Automate procurement workflows from requisition to payment',
+      automationOpportunities: [
+        { id: 'requisition', name: 'Purchase Requisition' },
+        { id: 'vendor_selection', name: 'Vendor Selection' },
+        { id: 'purchase_order', name: 'Purchase Order Creation' },
+        { id: 'goods_receipt', name: 'Goods Receipt Processing' },
+        { id: 'invoice_processing', name: 'Invoice Processing' },
+        { id: 'payment', name: 'Payment Processing' }
+      ]
+    },
+    {
+      id: 'h2r',
+      name: 'Hire-to-Retire (H2R)',
+      icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+      description: 'Complete HR lifecycle management from recruitment to retirement',
+      automationOpportunities: [
+        { id: 'recruitment', name: 'Recruitment Process' },
+        { id: 'onboarding', name: 'Employee Onboarding' },
+        { id: 'payroll', name: 'Payroll Management' },
+        { id: 'performance_mgmt', name: 'Performance Management' },
+        { id: 'training', name: 'Training & Development' },
+        { id: 'offboarding', name: 'Employee Offboarding' }
+      ]
+    },
+    {
+      id: 'r2r',
+      name: 'Record-to-Report (R2R)',
+      icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+      description: 'Automate financial record keeping and reporting processes',
+      automationOpportunities: [
+        { id: 'journal_entries', name: 'Journal Entry Processing' },
+        { id: 'ledger_maintenance', name: 'Ledger Maintenance' },
+        { id: 'reconciliations', name: 'Account Reconciliations' },
+        { id: 'financial_close', name: 'Financial Close Process' },
+        { id: 'reporting', name: 'Financial Reporting' },
+        { id: 'compliance', name: 'Compliance Monitoring' }
+      ]
+    },
+    {
+      id: 'customer_acquisition',
+      name: 'Customer Acquisition',
+      icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+      description: 'AI-driven customer acquisition and lead generation processes',
+      automationOpportunities: [
+        { id: 'market_research', name: 'Market Research' },
+        { id: 'campaign_execution', name: 'Campaign Execution' },
+        { id: 'lead_generation', name: 'Lead Generation' },
+        { id: 'crm_updates', name: 'CRM Management' },
+        { id: 'sales_conversion', name: 'Sales Conversion' }
+      ]
+    }
+  ];
+
+  // Data structure for industries (updated to match user's requirements)
   const functionsData = [
     {
-  id: 'insurance',
-  name: 'Insurance',
-  icon: 'M12 2l4 4h6v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6h6l4-4z',
-  useCases: [
+      id: 'insurance',
+      name: 'Insurance',
+      icon: 'M12 2l4 4h6v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6h6l4-4z',
+      useCases: [
         {
-      id: 'vehicle_claim',
-      name: 'Vehicle Insurance Claim',
-      description: 'Agents manage accident report intake, damage photo analysis, repair estimation, and fraud checks, ensuring faster claim settlements and reduced disputes.',
-      roi: { label: 'Settlement Time Reduction', value: 60 },
-      blueprint: {
-        coordinator: 'Auto Claim Supervisor',
-        agents: ['Damage Analyzer', 'Repair Estimator', 'Fraud Detector', 'Settlement Agent']
-      },
-      demoVideo: {
-        title: 'Vehicle Claim Processing Demo',
-        thumbnail: '/api/placeholder/400/225',
-        description: 'Watch how AI agents process a vehicle insurance claim from accident report to settlement in under 2 minutes.'
-      },
-      liveDemo: {
-        url: 'https://insurance-frontend-agentic-c4gqbafzgxf9egc0.canadacentral-01.azurewebsites.net/',
-        label: 'Try Vehicle Claim Demo'
-      }
+          id: 'vehicle_claim',
+          name: 'Vehicle Insurance Claim',
+          description: 'Agents manage accident report intake, damage photo analysis, repair estimation, and fraud checks, ensuring faster claim settlements and reduced disputes.',
+          roi: { label: 'Settlement Time Reduction', value: 60 },
+          blueprint: {
+            coordinator: 'Auto Claim Supervisor',
+            agents: ['Damage Analyzer', 'Repair Estimator', 'Fraud Detector', 'Settlement Agent']
+          },
+          demoVideo: {
+            title: 'Vehicle Claim Processing Demo',
+            thumbnail: '/api/placeholder/400/225',
+            description: 'Watch how AI agents process a vehicle insurance claim from accident report to settlement in under 2 minutes.'
+          },
+          liveDemo: {
+            url: 'https://insurance-frontend-agentic-c4gqbafzgxf9egc0.canadacentral-01.azurewebsites.net/',
+            label: 'Try Vehicle Claim Demo'
+          }
+        },
+        {
+          id: 'health_claim',
+          name: 'Health Insurance Claim',
+          description: 'Agents automate claim validation, policy checks, medical bill extraction, and approval workflows, reducing turnaround times for patients and providers.',
+          roi: { label: 'Claim Processing Speed', value: 70 },
+          blueprint: {
+            coordinator: 'Health Claim Coordinator',
+            agents: ['Medical Bill Extractor', 'Policy Validator', 'Claim Approver', 'Exception Handler']
+          },
+          demoVideo: {
+            title: 'Health Insurance Automation Demo',
+            thumbnail: '/api/placeholder/400/225',
+            description: 'See how medical bills are processed automatically with policy validation and instant approvals.'
+          },
+          liveDemo: {
+            url: '/demos/health-claim',
+            label: 'Try Health Claim Demo'
+          }
+        },
+        {
+          id: 'property_claim',
+          name: 'Property Insurance Claim',
+          description: 'Agents evaluate incident reports, validate ownership documents, estimate loss, and recommend payouts for faster property claim resolution.',
+          roi: { label: 'Manual Effort Reduction', value: 85 },
+          blueprint: {
+            coordinator: 'Property Claim Manager',
+            agents: ['Document Verifier', 'Loss Assessor', 'Policy Checker', 'Payout Recommender']
+          },
+          demoVideo: {
+            title: 'Property Damage Assessment Demo',
+            thumbnail: '/api/placeholder/400/225',
+            description: 'Experience how AI agents evaluate property damage reports and calculate payouts automatically.'
+          },
+          liveDemo: {
+            url: '/demos/property-claim',
+            label: 'Try Property Claim Demo'
+          }
+        }
+      ]
     },
     {
-      id: 'health_claim',
-      name: 'Health Insurance Claim',
-      description: 'Agents automate claim validation, policy checks, medical bill extraction, and approval workflows, reducing turnaround times for patients and providers.',
-      roi: { label: 'Claim Processing Speed', value: 70 },
-      blueprint: {
-        coordinator: 'Health Claim Coordinator',
-        agents: ['Medical Bill Extractor', 'Policy Validator', 'Claim Approver', 'Exception Handler']
-      },
-      demoVideo: {
-        title: 'Health Insurance Automation Demo',
-        thumbnail: '/api/placeholder/400/225',
-        description: 'See how medical bills are processed automatically with policy validation and instant approvals.'
-      },
-      liveDemo: {
-        url: '/demos/health-claim',
-        label: 'Try Health Claim Demo'
-      }
-    },
-
-    {
-      id: 'property_claim',
-      name: 'Property Insurance Claim',
-      description: 'Agents evaluate incident reports, validate ownership documents, estimate loss, and recommend payouts for faster property claim resolution.',
-      roi: { label: 'Manual Effort Reduction', value: 85 },
-      blueprint: {
-        coordinator: 'Property Claim Manager',
-        agents: ['Document Verifier', 'Loss Assessor', 'Policy Checker', 'Payout Recommender']
-      },
-      demoVideo: {
-        title: 'Property Damage Assessment Demo',
-        thumbnail: '/api/placeholder/400/225',
-        description: 'Experience how AI agents evaluate property damage reports and calculate payouts automatically.'
-      },
-      liveDemo: {
-        url: '/demos/property-claim',
-        label: 'Try Property Claim Demo'
-      }
-    }
-  ]
-},
-{
-  id: 'healthcare',
-  name: 'Healthcare & Life Sciences',
-  icon: 'M12 2a10 10 0 100 20 10 10 0 000-20zm1 5h-2v4H7v2h4v4h2v-4h4v-2h-4V7z',
-  useCases: [
-    {
-      id: 'patient_care',
-      name: 'Autonomous Patient Care',
-      description: 'Agents monitor patient vitals, flag anomalies, and alert doctors or caregivers in real-time for proactive healthcare interventions.',
-      roi: { label: 'Emergency Response Speed', value: 65 },
-      blueprint: {
-        coordinator: 'Care Coordinator',
-        agents: ['Vitals Monitor', 'Anomaly Detector', 'Alert Agent', 'Care Escalator']
-      }
-    },
-    {
-      id: 'medical_records',
-      name: 'Smart Medical Records',
-      description: 'Agents automatically extract, update, and verify patient EHRs, ensuring compliance and accuracy across healthcare systems.',
-      roi: { label: 'Record Accuracy Improvement', value: 85 },
-      blueprint: {
-        coordinator: 'Records Supervisor',
-        agents: ['Data Extractor', 'Compliance Checker', 'Update Agent', 'Audit Reporter']
-      }
-    },
-    {
-      id: 'pharmacy',
-      name: 'Pharmacy Automation',
-      description: 'Agents handle prescription validation, drug interaction checks, and automatic inventory restocking for seamless pharmacy operations.',
-      roi: { label: 'Prescription Error Reduction', value: 75 },
-      blueprint: {
-        coordinator: 'Pharmacy Manager',
-        agents: ['Prescription Validator', 'Interaction Checker', 'Inventory Monitor', 'Restocking Agent']
-      }
-    }
-  ]
-}
-,
-    {
-      id: 'finance',
-      name: 'Finance & Accounting',
+      id: 'banking_financial',
+      name: 'Banking & Financial Services',
       icon: 'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3',
       useCases: [
         {
-          id: 'otc',
-          name: 'Order-to-Cash',
-          description: 'Agents autonomously manage invoice disputes, match accounts receivable, and escalate exceptions, dramatically speeding up cash flow cycles.',
-          roi: { label: 'Cycle Time Reduction', value: 40 },
+          id: 'loan_processing',
+          name: 'Loan Processing',
+          description: 'Automated loan application processing, credit assessment, and approval workflows for financial institutions.',
+          roi: { label: 'Processing Time Reduction', value: 70 },
           blueprint: {
-            coordinator: 'O2C Coordinator',
-            agents: ['Invoice Validator', 'Dispute Resolver', 'AR Matcher', 'Collections Agent']
-          }
-        },
-        {
-          id: 'reconciliation',
-          name: 'Autonomous Reconciliation',
-          description: 'Automate ledger matching and inter-company reconciliations in minutes instead of days, with agents handling the matching and humans managing only the exceptions.',
-          roi: { label: 'Manual Effort Reduction', value: 95 },
-          blueprint: {
-            coordinator: 'Reconciliation Supervisor',
-            agents: ['Data Extractor', 'Matching Engine', 'Exception Handler', 'Reporting Agent']
-          }
-        },
-        {
-          id: 'forecasting',
-          name: 'Dynamic Forecasting',
-          description: 'Agents continuously pull data from ERPs, banks, and market feeds to provide real-time cash forecasts, predict shortfalls, and suggest optimal fund allocation.',
-          roi: { label: 'Forecast Accuracy', value: 30 },
-          blueprint: {
-            coordinator: 'Treasury Analyst',
-            agents: ['Market Data Agent', 'ERP Connector', 'Forecasting Modeler', 'Alerting Agent']
-          }
-        },
-        {
-          id: 'fraud',
-          name: 'Continuous Fraud Detection',
-          description: 'A team of agents monitors transactions 24/7, using advanced analytics to flag anomalies and suspicious patterns far more effectively than rule-based systems.',
-          roi: { label: 'Fraud Loss Reduction', value: 20 },
-          blueprint: {
-            coordinator: 'Risk Management Lead',
-            agents: ['Transaction Monitor', 'Pattern Detector', 'Case Creator', 'Blocking Agent']
+            coordinator: 'Loan Manager',
+            agents: ['Application Processor', 'Credit Analyzer', 'Risk Assessor', 'Approval Agent']
           }
         }
       ]
     },
     {
-      id: 'hr',
-      name: 'Human Resources',
-      icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+      id: 'energy_utilities',
+      name: 'Energy & Utilities',
+      icon: 'M13 10V3L4 14h7v7l9-11h-7z',
       useCases: [
         {
-          id: 'recruiting',
-          name: 'Full-Cycle Recruiting',
-          description: 'Agents automate the entire recruitment workflow, from sourcing and screening candidates to scheduling interviews and initiating hiring processes.',
-          roi: { label: 'Time-to-Hire Reduction', value: 50 },
+          id: 'grid_management',
+          name: 'Grid Management',
+          description: 'Automated energy grid monitoring, load balancing, and predictive maintenance for energy systems.',
+          roi: { label: 'Grid Efficiency', value: 45 },
           blueprint: {
-            coordinator: 'Hiring Manager Agent',
-            agents: ['Candidate Sourcer', 'Resume Screener', 'Interview Scheduler', 'Offer Drafter']
-          }
-        },
-        {
-          id: 'onboarding',
-          name: 'Automated Onboarding',
-          description: 'Ensure a seamless day-one experience by having agents automatically set up new hire accounts, assign training, and provision necessary resources.',
-          roi: { label: 'Admin Time Saved', value: 90 },
-          blueprint: {
-            coordinator: 'Onboarding Orchestrator',
-            agents: ['IT Provisioner', 'HR Policy Agent', 'Training Scheduler', 'Welcome Agent']
-          }
-        },
-        {
-          id: 'payroll',
-          name: 'Intelligent Payroll',
-          description: 'Agents auto-adjust calculations for tax and overtime, detect discrepancies before pay runs, and handle routine payroll inquiries autonomously.',
-          roi: { label: 'Payroll Error Reduction', value: 80 },
-          blueprint: {
-            coordinator: 'Payroll Supervisor',
-            agents: ['Time-sheet Validator', 'Tax Calculator', 'Discrepancy Detector', 'Query Responder']
-          }
-        },
-        {
-          id: 'service',
-          name: 'Proactive Employee Service',
-          description: 'Go beyond simple chatbots. Agents proactively resolve common inquiries, escalate complex cases with full context, and free up HR staff for strategic work.',
-          roi: { label: 'HR Ticket Deflection', value: 60 },
-          blueprint: {
-            coordinator: 'HR Service Desk',
-            agents: ['Policy Bot', 'Leave Request Agent', 'Benefits Advisor', 'Escalation Agent']
+            coordinator: 'Grid Manager',
+            agents: ['Load Monitor', 'Balance Controller', 'Maintenance Predictor', 'Outage Manager']
           }
         }
       ]
     },
     {
-      id: 'supplychain',
-      name: 'Supply Chain',
+      id: 'healthcare',
+      name: 'Healthcare',
+      icon: 'M12 2a10 10 0 100 20 10 10 0 000-20zm1 5h-2v4H7v2h4v4h2v-4h4v-2h-4V7z',
+      useCases: [
+        {
+          id: 'patient_billing',
+          name: 'Healthcare Billing Automation',
+          description: 'Automated medical billing, insurance claims processing, and payment reconciliation for healthcare providers.',
+          roi: { label: 'Billing Accuracy', value: 90 },
+          blueprint: {
+            coordinator: 'Billing Manager',
+            agents: ['Claims Processor', 'Insurance Validator', 'Payment Tracker', 'Reconciliation Agent']
+          }
+        }
+      ]
+    },
+    {
+      id: 'manufacturing',
+      name: 'Manufacturing',
       icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.363-.472a6 6 0 00-4.37 0l-2.363.472a2 2 0 00-1.022.547m3.388-3.388l2.364-2.363a2 2 0 00-2.828-2.828L12 8.172l-1.612-1.612a2 2 0 00-2.828 2.828l2.364 2.363',
       useCases: [
         {
-          id: 'forecasting_sc',
-          name: 'Continuous Demand Forecasting',
-          description: 'Agents analyze live sales data, market trends, and external signals to continuously update demand forecasts, making planning proactive instead of reactive.',
-          roi: { label: 'Stockout Reduction', value: 35 },
+          id: 'quality_control',
+          name: 'Quality Control Automation',
+          description: 'AI agents automate quality inspections, defect detection, and compliance reporting across manufacturing processes.',
+          roi: { label: 'Defect Reduction', value: 75 },
           blueprint: {
-            coordinator: 'Planning Supervisor',
-            agents: ['Demand Sensing', 'Market Trend Analyzer', 'Inventory Monitor', 'Replenishment Agent']
-          }
-        },
-        {
-          id: 'logistics',
-          name: 'Dynamic Logistics Planning',
-          description: 'Automate logistics by having agents re-route shipments in real-time to avoid disruptions, optimize for cost and delivery time, and coordinate with carriers.',
-          roi: { label: 'Logistics Cost Savings', value: 15 },
-          blueprint: {
-            coordinator: 'Logistics Orchestrator',
-            agents: ['Route Optimizer', 'Disruption Monitor', 'Carrier Booker', 'Tracking Agent']
-          }
-        },
-        {
-          id: 'procurement',
-          name: 'Automated Procurement',
-          description: 'Agents can identify optimal suppliers, generate and send RFPs, evaluate bids against complex criteria, and manage contracts to drive savings.',
-          roi: { label: 'Procurement Cycle Time', value: 45 },
-          blueprint: {
-            coordinator: 'Procurement Lead',
-            agents: ['Supplier Scout', 'RFP Generator', 'Bid Analyzer', 'Contract Manager']
+            coordinator: 'Quality Manager',
+            agents: ['Inspection Agent', 'Defect Detector', 'Compliance Monitor', 'Report Generator']
           }
         }
       ]
     },
     {
-      id: 'support',
-      name: 'Customer Service',
-      icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
+      id: 'retail_consumer',
+      name: 'Retail & Consumer Goods',
+      icon: 'M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5L2 21m5-8a2 2 0 11-4 0 2 2 0 014 0zm10 0a2 2 0 11-4 0 2 2 0 014 0z',
       useCases: [
         {
-          id: 'omnichannel',
-          name: 'Autonomous Omni-Channel Support',
-          description: 'Deploy agents that can fully handle routine customer queries via chat, voice, and email, and complete transactions on behalf of users 24/7.',
-          roi: { label: 'Service Cost Reduction', value: 10 },
+          id: 'inventory_management',
+          name: 'Inventory Management',
+          description: 'Automated inventory tracking, demand forecasting, and stock replenishment across retail operations.',
+          roi: { label: 'Inventory Optimization', value: 65 },
           blueprint: {
-            coordinator: 'Customer Support Hub',
-            agents: ['Query Classifier', 'Resolution Bot', 'Transaction Agent', 'Human Handoff']
-          }
-        },
-        {
-          id: 'summarization',
-          name: 'Case Summarization & Analysis',
-          description: 'Agents instantly summarize long case histories for human agents, providing context for faster resolution. They also perform post-case analysis and sentiment tagging.',
-          roi: { label: 'Avg. Handle Time Reduction', value: 25 },
-          blueprint: {
-            coordinator: 'Agent Assist',
-            agents: ['Case Summarizer', 'Sentiment Analyzer', 'Next-Best-Action', 'Knowledge Agent']
+            coordinator: 'Inventory Manager',
+            agents: ['Stock Monitor', 'Demand Forecaster', 'Replenishment Agent', 'Analytics Reporter']
           }
         }
       ]
     },
     {
-      id: 'sales',
-      name: 'Sales & Marketing',
-      icon: 'M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z',
+      id: 'telecom_media',
+      name: 'Telecom & Media',
+      icon: 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z',
       useCases: [
         {
-          id: 'leadgen',
-          name: 'Automated Lead Nurturing',
-          description: 'Agents engage and qualify leads 24/7, automating outreach, scheduling demos, and updating the CRM with conversational insights to free up sales teams.',
-          roi: { label: 'Sales Productivity Uplift', value: 14 },
+          id: 'network_monitoring',
+          name: 'Network Monitoring',
+          description: 'Automated network performance monitoring, fault detection, and service optimization for telecom operations.',
+          roi: { label: 'Network Uptime', value: 95 },
           blueprint: {
-            coordinator: 'Sales Development Rep',
-            agents: ['Lead Qualifier', 'Outreach Agent', 'Demo Scheduler', 'CRM Updater']
-          }
-        },
-        {
-          id: 'campaigns',
-          name: 'Agent-Driven Marketing Campaigns',
-          description: 'Let agents plan and execute campaigns by analyzing market trends, drafting personalized content and ad copy, and optimizing spend based on real-time results.',
-          roi: { label: 'Campaign ROI Uplift', value: 20 },
-          blueprint: {
-            coordinator: 'Marketing Manager',
-            agents: ['Trend Analyzer', 'Content Creator', 'Ad Optimizer', 'Performance Reporter']
-          }
-        }
-      ]
-    },
-    // {
-    //   id: 'itops',
-    //   name: 'IT Ops & DevOps',
-    //   icon: 'M10 20l4-16m4 16l4-16M3 9h18M4 15h16',
-    //   useCases: [
-    //     {
-    //       id: 'servicemgmt',
-    //       name: 'Self-Healing IT Service Mgmt',
-    //       description: 'Agents go beyond ticketing to autonomously resolve routine IT incidents, diagnose issues, generate resolution plans, and even push fixes without human intervention.',
-    //       roi: { label: 'L1 Ticket Automation', value: 75 },
-    //       blueprint: {
-    //         coordinator: 'ITSM Supervisor',
-    //         agents: ['Incident Diagnoser', 'Remediation Planner', 'Script Executor', 'Knowledge Base Writer']
-    //       }
-    //     },
-    //     {
-    //       id: 'cloudops',
-    //       name: 'Autonomous Cloud Operations',
-    //       description: 'Agents manage cloud infrastructure by monitoring performance, optimizing resource allocation for cost, managing deployments, and ensuring security compliance.',
-    //       roi: { label: 'Cloud Spend Reduction', value: 18 },
-    //       blueprint: {
-    //         coordinator: 'Cloud Ops Lead',
-    //         agents: ['Cost Optimizer', 'Security Scanner', 'CI/CD Agent', 'Performance Monitor']
-    //       }
-    //     }
-    //   ]
-    // },
-    {
-      id: 'compliance',
-      name: 'Compliance & Risk',
-      icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 20.417l5.318-3.045A12.02 12.02 0 0112 17.95a12.02 12.02 0 016.682-1.432l5.318 3.045A12.02 12.02 0 0021 8.984a11.955 11.955 0 01-2.382-3.04z',
-      useCases: [
-        {
-          id: 'audit',
-          name: 'Continuous Compliance Auditing',
-          description: 'Agents proactively enforce policies by continuously auditing processes, analyzing new regulations, and flagging potential violations in real-time.',
-          roi: { label: 'Audit Prep Time Reduction', value: 60 },
-          blueprint: {
-            coordinator: 'Chief Compliance Officer',
-            agents: ['Policy Monitor', 'Regulation Scanner', 'Violation Alerter', 'Audit Trail Agent']
-          }
-        },
-        {
-          id: 'contracts',
-          name: 'Intelligent Contract Review',
-          description: 'Deploy agents to parse thousands of legal documents and contracts, automatically extracting key clauses, identifying risks, and ensuring obligations are met.',
-          roi: { label: 'Contract Review Speed', value: 40 },
-          blueprint: {
-            coordinator: 'Legal Ops Manager',
-            agents: ['Clause Extractor', 'Risk Identifier', 'Obligation Tracker', 'Summary Generator']
+            coordinator: 'Network Manager',
+            agents: ['Performance Monitor', 'Fault Detector', 'Service Optimizer', 'Alert Manager']
           }
         }
       ]
     }
   ];
 
+  // State for the two-step navigation system
+  const [currentView, setCurrentView] = useState('initial'); // 'initial', 'industries', 'core_processes'
+  const [selectedCoreProcess, setSelectedCoreProcess] = useState(null);
+  
   // State for selected function and use-case. Initialize with the first function & its first use-case.
   const [selectedFunction, setSelectedFunction] = useState(functionsData[0]);
   const [selectedUseCase, setSelectedUseCase] = useState(functionsData[0].useCases[0]);
@@ -472,69 +373,191 @@ const SolutionsSection = () => {
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto">
           <h2 className="text-base font-semibold tracking-wide uppercase text-violet-400">
-            Solutions in Action
+            AI Nerve Centre Agent Hub
           </h2>
           <p className="mt-2 text-3xl sm:text-4xl font-extrabold text-white">
             Agentic Automation Catalogue
           </p>
           <p className="mt-4 text-xl text-gray-300">
-            Explore our catalogue of productized, outcome-driven solutions. First, select a core business function. Then, choose a specific automation opportunity to see its blueprint and potential ROI.
+            {currentView === 'initial' && 'Choose your exploration path to discover automation solutions.'}
+            {currentView === 'industries' && 'Explore our catalogue of productized, outcome-driven solutions. First, select a core business function. Then, choose a specific automation opportunity to see its blueprint and potential ROI.'}
+            {currentView === 'core_processes' && 'Select a core business process to explore automation opportunities.'}
           </p>
         </div>
 
-        {/* Tier 1: Business Functions */}
-        <div className="mt-12">
-          <h3 className="text-xl font-bold text-center text-white mb-6">
-            Step 1: Select a Business Function
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-            {functionsData.map(func => (
+        {/* Initial View - Choose between Industries and Core Processes */}
+        {currentView === 'initial' && (
+          <div className="mt-12">
+            <h3 className="text-xl font-bold text-center text-white mb-6">
+              Choose Your Path
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <button 
-                key={func.id}
-                onClick={() => setSelectedFunction(func)}
-                className={`p-4 rounded-lg shadow-md border-2 text-center 
-                           flex flex-col items-center justify-center cursor-pointer 
-                           transition-transform duration-300 
-                           ${selectedFunction.id === func.id 
-                              ? 'border-violet-500 bg-violet-500/20 -translate-y-1 shadow-lg' 
-                              : 'border-transparent bg-white/10 hover:-translate-y-1 hover:shadow-lg'}`}
+                onClick={() => setCurrentView('industries')}
+                className="p-8 rounded-lg shadow-md border-2 border-transparent bg-white/10 
+                         hover:border-violet-500 hover:bg-violet-500/20 hover:-translate-y-1 
+                         hover:shadow-lg transition-all duration-300 cursor-pointer"
               >
-                <div className="flex items-center justify-center h-12 w-12 rounded-full bg-violet-500/20 mb-3">
-                  <svg className="h-6 w-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={func.icon} />
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-violet-500/20 mb-4 mx-auto">
+                  <svg className="h-8 w-8 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 </div>
-                <h4 className="font-semibold text-sm text-white">{func.name}</h4>
+                <h4 className="font-semibold text-xl text-white mb-2">Industries</h4>
+                <p className="text-gray-300">
+                  Browse by industry sector to find solutions tailored to your domain
+                </p>
               </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Tier 2: Use Cases (visible once a function is selected) */}
-        <div className={`mt-12 transition-opacity duration-500 ${selectedFunction ? 'opacity-100' : 'opacity-0'}`}>
-          <h3 className="text-xl font-bold text-center text-white mb-6">
-            Step 2: Select an Automation Opportunity
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {selectedFunction.useCases.map(uc => (
+              
               <button 
-                key={uc.id}
-                onClick={() => setSelectedUseCase(uc)}
-                className={`p-4 rounded-lg shadow-md border-2 text-center cursor-pointer 
-                           transition-transform duration-300 
-                           ${selectedUseCase.id === uc.id 
-                              ? 'border-violet-500 bg-violet-500/20 -translate-y-1 shadow-lg' 
-                              : 'border-transparent bg-white/10 hover:-translate-y-1 hover:shadow-lg'}`}
+                onClick={() => setCurrentView('core_processes')}
+                className="p-8 rounded-lg shadow-md border-2 border-transparent bg-white/10 
+                         hover:border-violet-500 hover:bg-violet-500/20 hover:-translate-y-1 
+                         hover:shadow-lg transition-all duration-300 cursor-pointer"
               >
-                <h4 className="font-medium text-sm text-white">{uc.name}</h4>
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-violet-500/20 mb-4 mx-auto">
+                  <svg className="h-8 w-8 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                  </svg>
+                </div>
+                <h4 className="font-semibold text-xl text-white mb-2">Core Processes</h4>
+                <p className="text-gray-300">
+                  Explore by business process to find cross-industry automation solutions
+                </p>
               </button>
-            ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Tier 3: Blueprint & ROI content (visible once a use-case is selected) */}
-        <div className={`mt-12 transition-all duration-500 transform 
-                        ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
+        {/* Industries View - Original Business Functions */}
+        {currentView === 'industries' && (
+          <>
+            <div className="mt-12">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-white">
+                  Step 1: Select a Business Function
+                </h3>
+                <button 
+                  onClick={() => setCurrentView('initial')}
+                  className="text-violet-400 hover:text-violet-300 transition-colors"
+                >
+                  ← Back to Path Selection
+                </button>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                {functionsData.map(func => (
+                  <button 
+                    key={func.id}
+                    onClick={() => setSelectedFunction(func)}
+                    className={`p-4 rounded-lg shadow-md border-2 text-center 
+                               flex flex-col items-center justify-center cursor-pointer 
+                               transition-transform duration-300 
+                               ${selectedFunction.id === func.id 
+                                  ? 'border-violet-500 bg-violet-500/20 -translate-y-1 shadow-lg' 
+                                  : 'border-transparent bg-white/10 hover:-translate-y-1 hover:shadow-lg'}`}
+                  >
+                    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-violet-500/20 mb-3">
+                      <svg className="h-6 w-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={func.icon} />
+                      </svg>
+                    </div>
+                    <h4 className="font-semibold text-sm text-white">{func.name}</h4>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Core Processes View */}
+        {currentView === 'core_processes' && (
+          <>
+            <div className="mt-12">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-white">
+                  Step 1: Select a Core Process
+                </h3>
+                <button 
+                  onClick={() => setCurrentView('initial')}
+                  className="text-violet-400 hover:text-violet-300 transition-colors"
+                >
+                  ← Back to Path Selection
+                </button>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {coreProcessesData.map(process => (
+                  <button 
+                    key={process.id}
+                    onClick={() => setSelectedCoreProcess(process)}
+                    className={`p-4 rounded-lg shadow-md border-2 text-center 
+                               flex flex-col items-center justify-center cursor-pointer 
+                               transition-transform duration-300 
+                               ${selectedCoreProcess?.id === process.id 
+                                  ? 'border-violet-500 bg-violet-500/20 -translate-y-1 shadow-lg' 
+                                  : 'border-transparent bg-white/10 hover:-translate-y-1 hover:shadow-lg'}`}
+                  >
+                    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-violet-500/20 mb-3">
+                      <svg className="h-6 w-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={process.icon} />
+                      </svg>
+                    </div>
+                    <h4 className="font-semibold text-sm text-white">{process.name}</h4>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Automation Opportunities (visible once a core process is selected) */}
+            {selectedCoreProcess && (
+              <div className="mt-12 transition-opacity duration-500 opacity-100">
+                <h3 className="text-xl font-bold text-center text-white mb-6">
+                  Step 2: Select an Automation Opportunity
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {selectedCoreProcess.automationOpportunities.map(opportunity => (
+                    <button 
+                      key={opportunity.id}
+                      className="p-4 rounded-lg shadow-md border-2 text-center cursor-pointer 
+                               transition-transform duration-300 border-transparent bg-white/10 
+                               hover:border-violet-500 hover:bg-violet-500/20 hover:-translate-y-1 hover:shadow-lg"
+                    >
+                      <h4 className="font-medium text-sm text-white">{opportunity.name}</h4>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Tier 2: Use Cases (visible once a function is selected and in industries view) */}
+        {currentView === 'industries' && (
+          <div className={`mt-12 transition-opacity duration-500 ${selectedFunction ? 'opacity-100' : 'opacity-0'}`}>
+            <h3 className="text-xl font-bold text-center text-white mb-6">
+              Step 2: Select an Automation Opportunity
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {selectedFunction.useCases.map(uc => (
+                <button 
+                  key={uc.id}
+                  onClick={() => setSelectedUseCase(uc)}
+                  className={`p-4 rounded-lg shadow-md border-2 text-center cursor-pointer 
+                             transition-transform duration-300 
+                             ${selectedUseCase.id === uc.id 
+                                ? 'border-violet-500 bg-violet-500/20 -translate-y-1 shadow-lg' 
+                                : 'border-transparent bg-white/10 hover:-translate-y-1 hover:shadow-lg'}`}
+                >
+                  <h4 className="font-medium text-sm text-white">{uc.name}</h4>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Tier 3: Blueprint & ROI content (visible once a use-case is selected and in industries view) */}
+        {currentView === 'industries' && (
+          <div className={`mt-12 transition-all duration-500 transform 
+                          ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
           <div className="p-6 sm:p-8 bg-white/5 backdrop-blur-lg rounded-lg shadow-xl">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
               {/* Blueprint Diagram Column */}
@@ -627,6 +650,7 @@ const SolutionsSection = () => {
             )}
           </div>
         </div>
+        )}
       </div> 
     </section>
   );
