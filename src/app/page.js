@@ -49,7 +49,7 @@ export default function Home() {
         <OpportunitySection />
         <ArenaSection />
         <BlueprintSection />
-        <GoToMarketSection />
+        {/* <GoToMarketSection /> */}
       </main>
       <Footer />
     </div>
